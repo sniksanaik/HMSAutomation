@@ -12,4 +12,58 @@
         </classes>
     </test>
 
+    <test name="Patient Tests">
+        <classes>
+            <class name="org.example.hms.tests.PatientTest"/>
+        </classes>
+    </test>
+
+    <test name="Appointment Tests">
+        <classes>
+            <class name="org.example.hms.tests.AppointmentTest"/>
+        </classes>
+    </test>
+
+    <test name="Doctor Tests">
+        <classes>
+            <class name="org.example.hms.tests.DoctorTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Forms Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.FormsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Alerts Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.AlertsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - iFrame Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.IFrameTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Tables Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.TablesTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Waits Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.WaitsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Misc Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.MiscTabTest"/>
+        </classes>
+    </test>
+
 </suite>
