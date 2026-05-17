@@ -35,4 +35,9 @@ public class ConfigReader {
     public static boolean isHeadless()      { return Boolean.parseBoolean(get("headless")); }
     public static int getImplicitWait()     { return Integer.parseInt(get("implicit.wait")); }
     public static int getExplicitWait()     { return Integer.parseInt(get("explicit.wait")); }
+    public static String getProperty(String key) {
+        String sysProp = System.getProperty(key);
+        if (sysProp != null) return sysProp.trim();
+        return props.getProperty(key);
+    }
 }

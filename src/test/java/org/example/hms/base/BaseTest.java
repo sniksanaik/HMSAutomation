@@ -10,10 +10,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 public class BaseTest {
@@ -48,25 +51,43 @@ public class BaseTest {
 
     private WebDriver createDriver() {
         boolean headless = ConfigReader.isHeadless();
+        String gridUrl = ConfigReader.getProperty("grid.url");
+
+        ChromeOptions chromeOpts = new ChromeOptions();
+        FirefoxOptions firefoxOpts = new FirefoxOptions();
+        EdgeOptions edgeOpts = new EdgeOptions();
+
+        if (headless) {
+            chromeOpts.addArguments("--headless", "--no-sandbox", "--disable-dev-shm-usage");
+            firefoxOpts.addArguments("-headless");
+            edgeOpts.addArguments("--headless");
+        }
+
+        if (gridUrl != null && !gridUrl.isBlank()) {
+            try {
+                return switch (ConfigReader.getBrowser().toLowerCase()) {
+                    case "firefox" -> new RemoteWebDriver(new URL(gridUrl), firefoxOpts);
+                    case "edge"    -> new RemoteWebDriver(new URL(gridUrl), edgeOpts);
+                    default        -> new RemoteWebDriver(new URL(gridUrl), chromeOpts);
+                };
+            } catch (MalformedURLException e) {
+                throw new RuntimeException("Invalid grid.url: " + gridUrl, e);
+            }
+        }
+
         return switch (ConfigReader.getBrowser().toLowerCase()) {
             case "firefox" -> {
                 WebDriverManager.firefoxdriver().setup();
-                FirefoxOptions opts = new FirefoxOptions();
-                if (headless) opts.addArguments("-headless");
-                yield new FirefoxDriver(opts);
+                yield new FirefoxDriver(firefoxOpts);
             }
             case "edge" -> {
                 WebDriverManager.edgedriver().setup();
-                EdgeOptions opts = new EdgeOptions();
-                if (headless) opts.addArguments("--headless");
-                yield new EdgeDriver(opts);
+                yield new EdgeDriver(edgeOpts);
             }
             default -> {
                 WebDriverManager.chromedriver().setup();
-                ChromeOptions opts = new ChromeOptions();
-                opts.addArguments("--start-maximized");
-                if (headless) opts.addArguments("--headless");
-                yield new ChromeDriver(opts);
+                chromeOpts.addArguments("--start-maximized");
+                yield new ChromeDriver(chromeOpts);
             }
         };
     }
