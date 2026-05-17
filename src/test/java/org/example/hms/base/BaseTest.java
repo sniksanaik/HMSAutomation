@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
@@ -64,14 +63,19 @@ public class BaseTest {
         }
 
         if (gridUrl != null && !gridUrl.isBlank()) {
-            try {
-                return switch (ConfigReader.getBrowser().toLowerCase()) {
-                    case "firefox" -> new RemoteWebDriver(new URL(gridUrl), firefoxOpts);
-                    case "edge"    -> new RemoteWebDriver(new URL(gridUrl), edgeOpts);
-                    default        -> new RemoteWebDriver(new URL(gridUrl), chromeOpts);
-                };
-            } catch (MalformedURLException e) {
-                throw new RuntimeException("Invalid grid.url: " + gridUrl, e);
+            String fullGridUrl = gridUrl.endsWith("/") ? gridUrl : gridUrl + "/";
+            for (int attempt = 1; attempt <= 5; attempt++) {
+                try {
+                    return switch (ConfigReader.getBrowser().toLowerCase()) {
+                        case "firefox" -> new RemoteWebDriver(new URL(fullGridUrl), firefoxOpts);
+                        case "edge"    -> new RemoteWebDriver(new URL(fullGridUrl), edgeOpts);
+                        default        -> new RemoteWebDriver(new URL(fullGridUrl), chromeOpts);
+                    };
+                } catch (Exception e) {
+                    if (attempt == 5) throw new RuntimeException("Grid not available after 5 attempts: " + fullGridUrl, e);
+                    System.out.println("Grid not ready, retrying in 5s... (attempt " + attempt + "/5)");
+                    try { Thread.sleep(5000); } catch (InterruptedException ie) { Thread.currentThread().interrupt(); }
+                }
             }
         }
 
