@@ -69,6 +69,8 @@ public class DoctorPage {
         searchInput.clear();
         new Select(specialtyFilter).selectByValue("");
         new Select(availabilityFilter).selectByValue("");
+        wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(
+                By.cssSelector("#doctors-grid .card"), 1));
     }
 
     // ── Add Doctor Modal ─────────────────────────────────────────────────────
