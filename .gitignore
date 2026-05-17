@@ -1,0 +1,16 @@
+# Maven
+target/
+
+# Screenshots
+screenshots/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+
+# OS
+.DS_Store
+Thumbs.db

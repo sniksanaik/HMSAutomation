@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="HMS UI Tests" verbose="1">
+
+    <listeners>
+        <listener class-name="org.example.hms.listeners.TestListener"/>
+    </listeners>
+    <test name="Login Tests">
+        <classes>
+            <class name="org.example.hms.tests.LoginTest"/>
+        </classes>
+    </test>
+
+    <test name="Patient Tests">
+        <classes>
+            <class name="org.example.hms.tests.PatientTest"/>
+        </classes>
+    </test>
+
+    <test name="Appointment Tests">
+        <classes>
+            <class name="org.example.hms.tests.AppointmentTest"/>
+        </classes>
+    </test>
+
+    <test name="Doctor Tests">
+        <classes>
+            <class name="org.example.hms.tests.DoctorTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Forms Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.FormsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Alerts Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.AlertsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - iFrame Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.IFrameTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Tables Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.TablesTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Waits Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.WaitsTabTest"/>
+        </classes>
+    </test>
+
+    <test name="Elements - Misc Tab">
+        <classes>
+            <class name="org.example.hms.tests.elements.MiscTabTest"/>
+        </classes>
+    </test>
+
+</suite>
