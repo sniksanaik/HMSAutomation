@@ -15,13 +15,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'mvn clean compile'
+                sh 'mvn clean compile -f pom.xml'
             }
         }
 
         stage('Run Tests') {
             steps {
-                bat 'mvn test -Dsurefire.suiteXmlFiles=testng.xml'
+                sh 'mvn test -Dsurefire.suiteXmlFiles=testng.xml -f pom.xml'
             }
         }
 
