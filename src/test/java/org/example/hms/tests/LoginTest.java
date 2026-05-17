@@ -14,6 +14,7 @@ public class LoginTest extends BaseTest {
     public void testValidLogin() {
         LoginPage loginPage = new LoginPage(driver, wait);
         loginPage.login(ADMIN_USER, ADMIN_PASS);
+        System.out.println("test to git ");
 
         wait.until(ExpectedConditions.urlContains("index.html"));
         DashboardPage dashboard = new DashboardPage(driver, wait);

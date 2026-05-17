@@ -19,6 +19,8 @@ public class AppointmentApiTest {
     @BeforeClass
     public void setup() {
         RestAssured.baseURI = ConfigReader.getApiBaseUrl();
+
+
     }
 
     @Test(description = "GET /api/appointments returns seeded appointment")
